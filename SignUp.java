@@ -194,7 +194,7 @@ public class SignUp {
 				String pass = passwordField.getText().toString();
 				String email = txtEmail.getText().toString();
 				
-				User inputChecker = new User(); 
+				User inputChecker = new User("", ""); 
 					boolean isValidPassword = inputChecker.checkPassword(pass);
 					boolean isValidEmail = inputChecker.checkValidUsername(email);
 				

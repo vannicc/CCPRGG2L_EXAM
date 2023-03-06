@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -26,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JTable;
+import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
 
 public class EnrolmentForm {
 
@@ -69,38 +73,22 @@ public class EnrolmentForm {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 700, 650);
+		frame.setBackground(Color.WHITE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		table = new JTable();
-		Object[] columns = {"First Name", "Last Name", "Student ID", "Course", "Student Type", "Total Fees"};
+		Object[] columns = {"First Name", "Last Name", "Student ID", "Course", "Student Type", "Tot. Fees (in Php)"};
 		DefaultTableModel model = new DefaultTableModel();
 		model.setColumnIdentifiers(columns);
-		table.setModel(model);
-		table.setBackground(Color.WHITE);
-		table.setForeground(Color.BLACK);
-		table.setSelectionBackground(Color.RED);
-		table.setGridColor(Color.RED);
-		table.setSelectionForeground(Color.WHITE);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		table.setRowHeight(30);
-		table.setAutoCreateRowSorter(true);
-		
-			JScrollPane pane = new JScrollPane(table);
-				pane.setForeground(Color.RED);
-				pane.setBackground(Color.WHITE);
-				pane.setBounds(37,461,637,128);
-				frame.getContentPane().add(pane);
 		
 		JLabel lblEnrollmentForm = new JLabel("Enrollment Form", SwingConstants.CENTER);
 		lblEnrollmentForm.setFont(new Font("Georgia", Font.BOLD, 25));
-		lblEnrollmentForm.setBounds(37, 11, 415, 38);
+		lblEnrollmentForm.setBounds(319, 11, 365, 38);
 		frame.getContentPane().add(lblEnrollmentForm);
 		
 		JPanel panelFirstName = new JPanel();
 		panelFirstName.setBackground(new Color(255, 255, 255));
 		panelFirstName.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(128, 128, 128)));
-		panelFirstName.setBounds(137, 88, 224, 32);
+		panelFirstName.setBounds(388, 88, 224, 32);
 		frame.getContentPane().add(panelFirstName);
 		panelFirstName.setLayout(null);
 		
@@ -131,7 +119,7 @@ public class EnrolmentForm {
 		panelLastName.setLayout(null);
 		panelLastName.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(128, 128, 128)));
 		panelLastName.setBackground(Color.WHITE);
-		panelLastName.setBounds(137, 149, 224, 32);
+		panelLastName.setBounds(388, 149, 224, 32);
 		frame.getContentPane().add(panelLastName);
 		
 		textLastName = new JTextField();
@@ -161,7 +149,7 @@ public class EnrolmentForm {
 		panelIDNumber.setLayout(null);
 		panelIDNumber.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(128, 128, 128)));
 		panelIDNumber.setBackground(Color.WHITE);
-		panelIDNumber.setBounds(137, 210, 224, 32);
+		panelIDNumber.setBounds(388, 210, 224, 32);
 		frame.getContentPane().add(panelIDNumber);
 		
 		textIDNumber = new JTextField();
@@ -192,81 +180,129 @@ public class EnrolmentForm {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					comboStudentType = comboBoxStudentType.getSelectedItem().toString();
-					
-					for (String x : studentType) {
-						if (x.equals(comboStudentType)) {
-							comboStudentType = comboStudentType;
-						} else {
-							comboStudentType = "";
-						}
-					}
+				} else {
+					comboStudentType = "";
 				}
 			}
 		});
 		
-		comboBoxStudentType.setBounds(137, 268, 224, 32);
+		comboBoxStudentType.setBounds(388, 268, 224, 32);
 		frame.getContentPane().add(comboBoxStudentType);
 		
 		JComboBox comboBoxCourse = new JComboBox(coursesOffered);
-		comboBoxCourse.setBounds(137, 331, 224, 32);
-		frame.getContentPane().add(comboBoxCourse);
-		
-		JButton btnEnrollStudent = new JButton("Enroll Student");
-		btnEnrollStudent.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			boolean enrollmentSuccess = true;
-			
-			
-			if (enrollmentSuccess) {
-			btnEnrollStudent.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					Object[] row = new Object[6];
-					row[0] = textFirstName.getText();
-					row[1] = textLastName.getText();
-					row[2] = textIDNumber.getText();
-					row[3] = comboBoxCourse.getSelectedItem();
-					row[4] = comboBoxStudentType.getSelectedItem();
-					
-					model.addRow(row);
-					}
-				}); 
-					JOptionPane.showMessageDialog(null, "Enrollment Complete!");
-				} 
+		comboBoxCourse.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					comboCourseName = comboBoxCourse.getSelectedItem().toString();
+				} else {
+					comboCourseName = "";
+				}
 			}
 		});
-		btnEnrollStudent.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnEnrollStudent.setBounds(137, 388, 224, 32);
-		frame.getContentPane().add(btnEnrollStudent);
+		
+		comboBoxCourse.setBounds(388, 326, 224, 32);
+		frame.getContentPane().add(comboBoxCourse);
 		
 		JLabel lblStudFirstName = new JLabel("Student's First Name");
 		lblStudFirstName.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblStudFirstName.setBounds(137, 70, 224, 14);
+		lblStudFirstName.setBounds(388, 68, 224, 14);
 		frame.getContentPane().add(lblStudFirstName);
 		
 		JLabel lblStudLastName = new JLabel("Student's Last Name");
 		lblStudLastName.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblStudLastName.setBounds(137, 131, 224, 14);
+		lblStudLastName.setBounds(388, 131, 224, 14);
 		frame.getContentPane().add(lblStudLastName);
 		
 		JLabel lblStudIDNumber = new JLabel("Student's ID Number");
 		lblStudIDNumber.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblStudIDNumber.setBounds(137, 192, 224, 14);
+		lblStudIDNumber.setBounds(388, 192, 224, 14);
 		frame.getContentPane().add(lblStudIDNumber);
 		
 		JLabel lblCourse = new JLabel("Course");
 		lblCourse.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblCourse.setBounds(137, 253, 224, 14);
+		lblCourse.setBounds(388, 253, 224, 14);
 		frame.getContentPane().add(lblCourse);
 		
 		JLabel lblStudType = new JLabel("Student Type");
 		lblStudType.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblStudType.setBounds(137, 311, 224, 14);
+		lblStudType.setBounds(388, 311, 224, 14);
 		frame.getContentPane().add(lblStudType);
 		
-		JLabel lblEnrolledStudents = new JLabel("Students Enrolled");
-		lblEnrolledStudents.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEnrolledStudents.setBounds(37, 436, 167, 14);
-		frame.getContentPane().add(lblEnrolledStudents);
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBackground(new Color(255, 255, 255));
+		panel.setBounds(0, 0, 684, 434);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton btnEnrollStudent = new JButton("Enroll Student");
+		btnEnrollStudent.setBounds(387, 377, 224, 32);
+		panel.add(btnEnrollStudent);
+		btnEnrollStudent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			
+			boolean enrollmentSuccess = true;
+			EnrolleeCredentials enroll = new EnrolleeCredentials("","","",comboCourseName,comboStudentType);
+				totalPayableFee = enroll.totalFees(comboStudentType, comboCourseName, 0, 0);
+			
+				
+				if (enrollmentSuccess) {
+					JOptionPane.showMessageDialog(null, "Enrollment Complete!");
+					}
+				
+				btnEnrollStudent.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Object[] row = new Object[6];
+						row[0] = textFirstName.getText();
+						row[1] = textLastName.getText();
+						row[2] = textIDNumber.getText();
+						row[3] = comboBoxCourse.getSelectedItem();
+						row[4] = comboBoxStudentType.getSelectedItem();
+						row[5] = totalPayableFee;
+				
+						model.addRow(row);
+						}
+					}); 
+				} 
+		});
+		btnEnrollStudent.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		JLabel lblSchoolPoster = new JLabel("");
+		Image img = new ImageIcon(this.getClass().getResource("HNSPOST.png")).getImage();
+		lblSchoolPoster.setIcon(new ImageIcon(img));
+		lblSchoolPoster.setBounds(0, 0, 309, 434);
+		lblSchoolPoster.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.add(lblSchoolPoster);
+		
+			
+			JPanel panelEnrollDisplay = new JPanel();
+			panelEnrollDisplay.setBorder(new LineBorder(new Color(0, 0, 0)));
+			panelEnrollDisplay.setBackground(new Color(255, 255, 255));
+			panelEnrollDisplay.setBounds(0, 435, 684, 176);
+			frame.getContentPane().add(panelEnrollDisplay);
+			panelEnrollDisplay.setLayout(null);
+			
+			table = new JTable();
+			table.setModel(model);
+			table.setBackground(Color.WHITE);
+			table.setForeground(Color.BLACK);
+			table.setSelectionBackground(Color.RED);
+			table.setGridColor(Color.RED);
+			table.setSelectionForeground(Color.WHITE);
+			table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			table.setRowHeight(30);
+			table.setAutoCreateRowSorter(true);
+			
+				JScrollPane pane = new JScrollPane(table);
+				pane.setBounds(10, 37, 664, 128);
+				panelEnrollDisplay.add(pane);
+				pane.setForeground(Color.RED);
+				pane.setBackground(Color.WHITE);
+				
+				JLabel lblEnrolledStudents = new JLabel("Students Enrolled");
+				lblEnrolledStudents.setBounds(10, 12, 167, 14);
+				panelEnrollDisplay.add(lblEnrolledStudents);
+				lblEnrolledStudents.setFont(new Font("Tahoma", Font.BOLD, 12));
 	}
 }

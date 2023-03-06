@@ -4,7 +4,7 @@ public class User {
 
 String name, age, birthday, userName, password;
 	
-	public UserCredentials(String uName, String pass) {
+	public User(String uName, String pass) {
 		this.userName = uName;
 		this.password = pass;
 	}

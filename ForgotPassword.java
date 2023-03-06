@@ -19,9 +19,10 @@ import javax.swing.border.MatteBorder;
 public class ForgotPassword {
 
 	private JFrame frame;
-	private JTextField textField;
 	private JTextField txtEmail;
 	private JPasswordField passwordField;
+	private JTextField textField_1;
+	private JTextField textFindEmailOrPhone;
 
 	/**
 	 * Launch the application.
@@ -112,10 +113,7 @@ public class ForgotPassword {
 		btnNewButton.setBounds(271, 20, 95, 41);
 		panel_3_1.add(btnNewButton);
 		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		
 		JLabel lblPlsEnter1 = new JLabel("Please enter your email or mobile number to search for");
 		lblPlsEnter1.setFont(new Font("Segoe UI", Font.PLAIN, 17));
@@ -127,10 +125,35 @@ public class ForgotPassword {
 		lblPlsEnter2.setBounds(21, 93, 466, 35);
 		panel_2.add(lblPlsEnter2);
 		
-		textField = new JTextField();
-		textField.setBounds(21, 138, 455, 48);
-		panel_2.add(textField);
-		textField.setColumns(10);
+		JPanel panelFindEmailOrPhone = new JPanel();
+		panelFindEmailOrPhone.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(128, 128, 128)));
+		panelFindEmailOrPhone.setBackground(new Color(255, 255, 255));
+		panelFindEmailOrPhone.setBounds(21, 135, 454, 44);
+		panel_2.add(panelFindEmailOrPhone);
+		panelFindEmailOrPhone.setLayout(null);
+		
+		textFindEmailOrPhone = new JTextField();
+		textFindEmailOrPhone.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (textFindEmailOrPhone.getText().equals("Email or mobile number")) {
+					textFindEmailOrPhone.setText("");
+				}
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (textFindEmailOrPhone.getText().equals("")) {
+					textFindEmailOrPhone.setText("Email or mobile number");
+				}
+			}
+		});
+		textFindEmailOrPhone.setBounds(10, 11, 434, 23);
+		panelFindEmailOrPhone.add(textFindEmailOrPhone);
+		textFindEmailOrPhone.setText("Email or mobile number");
+		textFindEmailOrPhone.setForeground(Color.LIGHT_GRAY);
+		textFindEmailOrPhone.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textFindEmailOrPhone.setColumns(10);
+		textFindEmailOrPhone.setBorder(null);
 		
 		JLabel lblFacebook = new JLabel("facebook");
 		lblFacebook.setForeground(new Color(0, 128, 255));
@@ -196,7 +219,7 @@ public class ForgotPassword {
 		panel.add(lblNewLabel);
 		
 		JPanel panelEmail = new JPanel();
-		panelEmail.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panelEmail.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(192, 192, 192)));
 		panelEmail.setBackground(new Color(255, 255, 255));
 		panelEmail.setBounds(667, 11, 217, 35);
 		panel.add(panelEmail);
@@ -206,28 +229,29 @@ public class ForgotPassword {
 		txtEmail.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtEmail.getText().equals("Email or Phone")) {
+				if (txtEmail.getText().equals("Email or phone")) {
 					txtEmail.setText("");
 				}
 			}
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtEmail.getText().equals("")) {
-					txtEmail.setText("Email or Phone");
+					txtEmail.setText("Email or phone");
 				}
 			}
 		});
-		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtEmail.setForeground(new Color(192, 192, 192));
 		txtEmail.setBorder(null);
-		txtEmail.setBounds(10, 6, 197, 20);
+		txtEmail.setBounds(10, 6, 197, 23);
 		panelEmail.add(txtEmail);
-		txtEmail.setText("Email or Phone");
+		txtEmail.setText("Email or phone");
 		txtEmail.setColumns(10);
 		
 		JPanel panelPassword = new JPanel();
+		panelPassword.setForeground(new Color(128, 128, 128));
 		panelPassword.setLayout(null);
-		panelPassword.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		panelPassword.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(192, 192, 192)));
 		panelPassword.setBackground(Color.WHITE);
 		panelPassword.setBounds(894, 11, 217, 35);
 		panel.add(panelPassword);
@@ -252,10 +276,10 @@ public class ForgotPassword {
 		});
 		passwordField.setForeground(new Color(192, 192, 192));
 		passwordField.setBorder(null);
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		passwordField.setText("Password");
 		passwordField.setEchoChar((char)0);
-		passwordField.setBounds(10, 6, 197, 20);
+		passwordField.setBounds(10, 6, 197, 23);
 		panelPassword.add(passwordField);
 	}
 }

@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
@@ -37,6 +38,7 @@ public class EnrolmentForm {
 	private String comboStudentType;
 	private String comboCourseName;
 	private JTable table;
+	private int totalPayableFee;
 	
 	/**
 	 * Launch the application.
@@ -189,16 +191,15 @@ public class EnrolmentForm {
 		comboBoxStudentType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					comboStudentType = "";
-				
-					if (comboBoxStudentType.getSelectedItem().toString().equals("Employee")) {
-						comboStudentType = "Employee";
-					} else if (comboBoxStudentType.getSelectedItem().toString().equals("Customer")) {
-						comboStudentType = "Customer";
-					} 
-				
-				} else {
-					comboStudentType = "";
+					comboStudentType = comboBoxStudentType.getSelectedItem().toString();
+					
+					for (String x : studentType) {
+						if (x.equals(comboStudentType)) {
+							comboStudentType = comboStudentType;
+						} else {
+							comboStudentType = "";
+						}
+					}
 				}
 			}
 		});
@@ -211,27 +212,27 @@ public class EnrolmentForm {
 		frame.getContentPane().add(comboBoxCourse);
 		
 		JButton btnEnrollStudent = new JButton("Enroll Student");
-		btnEnrollStudent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Object[] row = new Object[6];
-				row[0] = textFirstName.getText();
-				row[1] = textLastName.getText();
-				row[2] = textIDNumber.getText();
-				row[3] = comboStudentType;
-				
-				model.addRow(row);
-				
-			}
-		});
-		
 		btnEnrollStudent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			boolean enrollmentSuccess = false;
+			boolean enrollmentSuccess = true;
 			
 			
-			
-			
+			if (enrollmentSuccess) {
+			btnEnrollStudent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Object[] row = new Object[6];
+					row[0] = textFirstName.getText();
+					row[1] = textLastName.getText();
+					row[2] = textIDNumber.getText();
+					row[3] = comboBoxCourse.getSelectedItem();
+					row[4] = comboBoxStudentType.getSelectedItem();
+					
+					model.addRow(row);
+					}
+				}); 
+					JOptionPane.showMessageDialog(null, "Enrollment Complete!");
+				} 
 			}
 		});
 		btnEnrollStudent.setFont(new Font("Tahoma", Font.BOLD, 15));

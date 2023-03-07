@@ -39,8 +39,8 @@ public class EnrolmentForm {
 	private JTextField textIDNumber;
 	private static String[] coursesOffered = {"Select Course", "Tourism","Computer Science", "Engineering", "Nursing", "Architecture"};
 	private static String[] studentType = {"Select Student Type", "Discounted (GOLD)","Discounted (BLUE)", "Discounted (WHITE)", "Walk-in", "Continuing"};
-	private String comboStudentType;
-	private String comboCourseName;
+	private String comboStudentType = "";
+	private String comboCourseName = "";
 	private JTable table;
 	private int totalPayableFee;
 	
@@ -229,55 +229,7 @@ public class EnrolmentForm {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton btnEnrollStudent = new JButton("Enroll Student");
-		btnEnrollStudent.setForeground(new Color(255, 255, 255));
-		btnEnrollStudent.setBackground(new Color(0, 193, 49));
-		btnEnrollStudent.setBounds(387, 377, 224, 32);
-		panel.add(btnEnrollStudent);
-		btnEnrollStudent.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			
-			boolean enrollmentSuccess = false;
-			EnrolleeCredentials enroll = new EnrolleeCredentials("","","",comboCourseName,comboStudentType);
-				totalPayableFee = enroll.totalFees(comboStudentType, comboCourseName, 0, 0);
-			
-				if (textFirstName.getText().equals("") || textLastName.getText().equals("") || textIDNumber.getText().equals("") || comboStudentType.equals("") || comboCourseName.equals("")) {
-					enrollmentSuccess = false;
-				}
-				else if (textFirstName.getText().equals("First Name") || textLastName.getText().equals("Last Name") || textIDNumber.getText().equals("ID Number") || comboStudentType.equals("Select Student Type") || comboCourseName.equals("Select Course")) {	
-					enrollmentSuccess = false;
-					
-				} else {
-					enrollmentSuccess = true;
-				}
-
-
-				if (enrollmentSuccess) {
-					
-					btnEnrollStudent.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							Object[] row = new Object[6];
-							row[0] = textFirstName.getText();
-							row[1] = textLastName.getText();
-							row[2] = textIDNumber.getText();
-							row[3] = comboBoxCourse.getSelectedItem();
-							row[4] = comboBoxStudentType.getSelectedItem();
-							row[5] = totalPayableFee;
-					
-							model.addRow(row);
-							}
-						}); 
-					
-					JOptionPane.showMessageDialog(null, "Enrollment Complete!");
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "Invalid Input, Please try again!");
-				}
-				
-				} 
-		});
-		btnEnrollStudent.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
 		
 		JLabel lblSchoolPoster = new JLabel("");
 		Image img = new ImageIcon(this.getClass().getResource("HNSPOST.png")).getImage();
@@ -341,5 +293,54 @@ public class EnrolmentForm {
 				btnNewButton.setBackground(new Color(255, 0, 0));
 				btnNewButton.setBounds(589, 10, 85, 21);
 				panelEnrollDisplay.add(btnNewButton);
+				
+				JButton btnEnrollStudent = new JButton("Enroll Student");
+				btnEnrollStudent.setForeground(new Color(255, 255, 255));
+				btnEnrollStudent.setBackground(new Color(0, 193, 49));
+				btnEnrollStudent.setBounds(387, 377, 224, 32);
+				panel.add(btnEnrollStudent);
+				btnEnrollStudent.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+					
+					boolean enrollmentSuccess = false;
+					EnrolleeCredentials enroll = new EnrolleeCredentials("","","",comboCourseName,comboStudentType);
+						totalPayableFee = enroll.totalFees(comboStudentType, comboCourseName, 0, 0);
+					
+						if (textFirstName.getText().equals("") || textLastName.getText().equals("") || textIDNumber.getText().equals("") || comboStudentType.equals("") || comboCourseName.equals("")) {
+							JOptionPane.showMessageDialog(null, "Please input all information!");
+						}
+						else if (textFirstName.getText().equals("First Name") || textLastName.getText().equals("Last Name") || textIDNumber.getText().equals("ID Number") || comboStudentType.equals("Select Student Type") || comboCourseName.equals("Select Course")) {	
+							JOptionPane.showMessageDialog(null, "Please input all information!");
+						} else {
+							enrollmentSuccess = true;
+						}
+
+						if (enrollmentSuccess) {
+							
+							JOptionPane.showMessageDialog(null, "Enrollment Complete!");
+							
+							Object[] row = new Object[6];
+								row[0] = textFirstName.getText();
+								row[1] = textLastName.getText();
+								row[2] = textIDNumber.getText();
+								row[3] = comboBoxCourse.getSelectedItem();
+								row[4] = comboBoxStudentType.getSelectedItem();
+								row[5] = totalPayableFee;
+						
+								model.addRow(row);
+							
+							textFirstName.setText("");
+							textLastName.setText("");
+							textIDNumber.setText("");
+							comboBoxCourse.setSelectedIndex(0);
+							comboBoxStudentType.setSelectedIndex(0);
+							
+						} 
+				
+					} 
+			});
+				
+				btnEnrollStudent.setFont(new Font("Tahoma", Font.BOLD, 15));
 	}
 }

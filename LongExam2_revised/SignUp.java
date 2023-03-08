@@ -127,12 +127,14 @@ public class SignUp {
 		txtFirstName.setBorder(gray);
 		txtFirstName.addFocusListener(new FocusAdapter() {
 			@Override
+			 // When focus is gained, sets the textfield to empty
 			public void focusGained(FocusEvent e) {
 				if (txtFirstName.getText().equals("  First Name")) {
 					txtFirstName.setText("  ");
 				}
 			}
 			@Override
+			// When focus is lost, reverts to textfield default
 			public void focusLost(FocusEvent e) {
 				if (txtFirstName.getText().equals("  ")) {
 					txtFirstName.setText("  First Name");
@@ -149,12 +151,14 @@ public class SignUp {
 		txtLastName.setBorder(gray);
 		txtLastName.addFocusListener(new FocusAdapter() {
 			@Override
+			// When focus is gained, sets the textfield to empty
 			public void focusGained(FocusEvent e) {
 				if (txtLastName.getText().equals("  Last Name")) {
 					txtLastName.setText("  ");
 				}
 			}
 			@Override
+			// When focus is lost, reverts to textfield default
 			public void focusLost(FocusEvent e) {
 				if (txtLastName.getText().equals("  ")) {
 					txtLastName.setText("  Last Name");
@@ -178,6 +182,7 @@ public class SignUp {
 		txtEmail.setBorder(gray);
 		txtEmail.addFocusListener(new FocusAdapter() {
 			@Override
+			// When focus is gained, sets the textfield to empty
 			public void focusGained(FocusEvent e) {
 				if (txtEmail.getText().equals("  Email")) {
 					txtEmail.setText("  ");
@@ -185,6 +190,7 @@ public class SignUp {
 			}
 			
 			@Override
+			 // When focus is lost, reverts to textfield default
 			public void focusLost(FocusEvent e) {
 				if (txtEmail.getText().equals("  ")) {
 					txtEmail.setText("  Email");
@@ -311,6 +317,7 @@ public class SignUp {
 		panelPassword.add(passwordField);
 		passwordField.addFocusListener(new FocusAdapter() {
 			@Override
+			 // When focus is gained, sets the password field to empty
 			public void focusGained(FocusEvent e) {
 				if (passwordField.getText().equals("Password")) {
 					passwordField.setText("");
@@ -319,6 +326,7 @@ public class SignUp {
 				}
 			}
 			@Override
+			 // When focus is lost, reverts to password field default 
 			public void focusLost(FocusEvent e) {
 				if (passwordField.getText().equals("")) {
 					passwordField.setText("Password");
@@ -329,6 +337,8 @@ public class SignUp {
 		JButton btnSignUp = new JButton("Sign Up");
 		btnSignUp.addMouseListener(new MouseAdapter() {
 			@Override
+			 // When button is clicked, performs the following conditions
+     			 // to determine whether Sign Up success or not
 			public void mouseClicked(MouseEvent e) {
 				
 				boolean SignUpSuccess = false;
@@ -396,6 +406,7 @@ public class SignUp {
 					isPasswordFilled = true;
 				}
 				
+				// Creates a Button Group and adds the radio buttons to it
 				ButtonGroup buttonGroup =  new ButtonGroup();
 					buttonGroup.add(rdbtnFemale);
 					buttonGroup.add(rdbtnMale);
@@ -410,8 +421,9 @@ public class SignUp {
 					rdbtnOthers.setBorder(red);
 				}
 				
-				
+				// Checks if every field in the window is filled
 				if ((FirstNameFilled && LastNameFilled && birthdateFilled && isEmailFilled && isPasswordFilled && isRadioButtonSelected) == true) {
+					 // Finishes sign up if password and email is valid
 					if (isValidPassword && isValidEmail) {
 						txtEmail.setBorder(gray);
 						panelPassword.setBorder(gray);
@@ -441,6 +453,7 @@ public class SignUp {
 		JButton btnAlreadyHaveAn = new JButton("Already have an account?");
 		btnAlreadyHaveAn.addMouseListener(new MouseAdapter() {
 			@Override
+			// When button is clicked, returns to Log In Page
 			public void mouseClicked(MouseEvent e) {
 					LoginPage login = new LoginPage();
 					frame.dispose();
@@ -460,6 +473,8 @@ public class SignUp {
 		panelCreateAccCotainer.add(btnAlreadyHaveAn);
 		
 		JCheckBox chckbxShowPassword = new JCheckBox("Show Password");
+		// Shows password if the checkbox is selected
+		// Then, hides the password again if checkbox is deselected
 		chckbxShowPassword.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (chckbxShowPassword.isSelected()) {

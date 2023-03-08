@@ -172,7 +172,7 @@ public class FeeBreakdown {
 		btnReturnToEnrollment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-					frame.dispose();
+				frame.dispose();
 			}
 		});
 		btnReturnToEnrollment.setForeground(Color.WHITE);

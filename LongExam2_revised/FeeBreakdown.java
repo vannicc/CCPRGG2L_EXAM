@@ -16,14 +16,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class FeeBreakdown {
 
 	private JFrame frame; 
 	private static String[] coursesOffered = {"Select Course", "Tourism","Computer Science", "Engineering", "Nursing", "Architecture"};
 	private static String[] studentType = {"Select Student Type", "Discounted (GOLD)","Discounted (BLUE)", "Discounted (WHITE)", "Walk-in", "Continuing"};
-	private String course;
-	private String studType;
+	private String course = "";
+	private String studType = "";
+	int totalFees = 0;
 	
 	/**
 	 * Launch the application.
@@ -135,13 +138,37 @@ public class FeeBreakdown {
 		lblDiscountedFees.setBounds(10, 7, 96, 18);
 		panelDiscountedFee.add(lblDiscountedFees);
 		
+		JComboBox comboBoxStudentType = new JComboBox(studentType);
+		comboBoxStudentType.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				studType = (String) comboBoxStudentType.getSelectedItem();	
+				totalFees = tuition.totalFees(studType, course, 0, 0);
+				
+				if (course.equals("Select course") || course.equals("")) {
+					lblDiscountedFee.setText("");
+				} else {
+				lblDiscountedFee.setText("Php " + Integer.toString(totalFees));
+				}
+				
+			}
+		});
+		comboBoxStudentType.setBounds(54, 110, 224, 32);
+		frame.getContentPane().add(comboBoxStudentType);
+		
 		JComboBox comboBoxCourses = new JComboBox(coursesOffered);
-		comboBoxCourses.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		comboBoxCourses.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
 				course = (String) comboBoxCourses.getSelectedItem();
 				int tf = tuition.tuitionFees(course, 0);
 				int mf = tuition.miscellaneousFees(course, tf);
 				int initialFee = tf + mf;
+				totalFees = tuition.totalFees(studType, course, 0, 0);
+				
+				if (course.equals("Select course")) {
+					lblDiscountedFee.setText("");
+				} else {
+					lblDiscountedFee.setText("Php " + Integer.toString(totalFees));
+				}
 				
 				lblTuitionFee.setText("Php " + Integer.toString(tf));
 				lblmiscellaneousFee.setText("Php " + Integer.toString(mf));
@@ -149,24 +176,9 @@ public class FeeBreakdown {
 				
 			}
 		});
+		
 		comboBoxCourses.setBounds(54, 60, 224, 32);
 		frame.getContentPane().add(comboBoxCourses);
-		
-		JComboBox comboBoxStudentType = new JComboBox(studentType);
-		comboBoxStudentType.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				studType = (String) comboBoxStudentType.getSelectedItem();
-				int totalFees = tuition.totalFees(studType, course, 0, 0);
-				
-				if (course.equals("Select course")) {
-					lblDiscountedFee.setText("Php 0");
-				} else {
-					lblDiscountedFee.setText("Php " + Integer.toString(totalFees));
-				}
-			}
-		});
-		comboBoxStudentType.setBounds(54, 110, 224, 32);
-		frame.getContentPane().add(comboBoxStudentType);
 		
 		JButton btnReturnToEnrollment = new JButton("EXIT");
 		btnReturnToEnrollment.addMouseListener(new MouseAdapter() {

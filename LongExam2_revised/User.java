@@ -25,7 +25,7 @@ String name, age, birthday, userName, password;
 		this.password = password;
 	}
 	
-  // Checks if input is a valid password
+  // Checks if input password is valid
 	public boolean checkPassword(String password) {
 	    // Check for minimum length
 	    if (password.length() < 8) {
@@ -59,7 +59,7 @@ String name, age, birthday, userName, password;
 	    return false;
 	}
 	
-  // Checks if input is a valid username
+  // Checks if input username is valid
 	public boolean checkValidUsername(String username) {
 		ArrayList<String> validEmails = new ArrayList<>();
 			validEmails.add("@gmail.com");

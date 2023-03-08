@@ -101,6 +101,7 @@ public class ForgotPassword {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
+			 // When button is clicked and condition is met, continues to Reset password window
 			public void mouseClicked(MouseEvent e) {
 				if (textFindEmail.getText().equals("mikoclark19@gmail.com")) {
 					ResetPassword reset = new ResetPassword();

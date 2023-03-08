@@ -27,6 +27,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPasswordField;
 import java.awt.SystemColor;
 import javax.swing.JCheckBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class SignUp {
 
@@ -38,7 +40,6 @@ public class SignUp {
 	private static String[] days = {"Day", "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29", "30", "31"};
 	private static String[] years = {"Year", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"};
 	private JPasswordField passwordField;
-	private int countClick = 0;
 	private Border red =  BorderFactory.createMatteBorder(1, 1, 1, 1, Color.RED);
 	private Border gray =  BorderFactory.createMatteBorder(1, 1, 1, 1, Color.lightGray);
 
@@ -459,23 +460,15 @@ public class SignUp {
 		panelCreateAccCotainer.add(btnAlreadyHaveAn);
 		
 		JCheckBox chckbxShowPassword = new JCheckBox("Show Password");
-		
-		chckbxShowPassword.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				countClick += 1;
-			}
-		});
-		chckbxShowPassword.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (countClick%2==1) {
+		chckbxShowPassword.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (chckbxShowPassword.isSelected()) {
 					passwordField.setEchoChar((char)0);
 				} else {
 					passwordField.setEchoChar('●');
 				}
 			}
 		});
-		
 		
 		chckbxShowPassword.setBackground(new Color(255, 255, 255));
 		chckbxShowPassword.setBounds(313, 215, 123, 23);

@@ -187,10 +187,10 @@ public class FeeBreakdown {
 				comboBoxCourses.setSelectedIndex(0);
 				comboBoxStudentType.setSelectedIndex(0);
 				
-				lblTuitionFee.setText("Php 0");
-				lblmiscellaneousFee.setText("Php 0");
-				lblintialFee.setText("Php 0");
-				lblDiscountedFee.setText("Php 0");
+				lblTuitionFee.setText("");
+				lblmiscellaneousFee.setText("");
+				lblintialFee.setText("");
+				lblDiscountedFee.setText("");
 				
 			}
 		});

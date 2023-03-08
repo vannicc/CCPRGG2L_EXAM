@@ -44,6 +44,7 @@ public class EnrolmentForm {
 	private JTable table;
 	private int totalPayableFee;
 	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +54,7 @@ public class EnrolmentForm {
 				try {
 					EnrolmentForm window = new EnrolmentForm();
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -280,8 +282,8 @@ public class EnrolmentForm {
 				panelEnrollDisplay.add(lblEnrolledStudents);
 				lblEnrolledStudents.setFont(new Font("Tahoma", Font.BOLD, 12));
 				
-				JButton btnNewButton = new JButton("Log Out");
-				btnNewButton.addMouseListener(new MouseAdapter() {
+				JButton btnLogOut = new JButton("Log Out");
+				btnLogOut.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						LoginPage login = new LoginPage();
@@ -289,10 +291,25 @@ public class EnrolmentForm {
 						login.main(null);
 					}
 				});
-				btnNewButton.setForeground(new Color(255, 255, 255));
-				btnNewButton.setBackground(new Color(255, 0, 0));
-				btnNewButton.setBounds(589, 10, 85, 21);
-				panelEnrollDisplay.add(btnNewButton);
+				btnLogOut.setForeground(new Color(255, 255, 255));
+				btnLogOut.setBackground(new Color(255, 0, 0));
+				btnLogOut.setBounds(589, 10, 85, 21);
+				panelEnrollDisplay.add(btnLogOut);
+				
+				JButton btnFeeBreakdown = new JButton("Fee Breakdown");
+				btnFeeBreakdown.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						FeeBreakdown fees = new FeeBreakdown();
+							fees.main(coursesOffered);
+							
+					}
+				});
+				btnFeeBreakdown.setForeground(Color.WHITE);
+				btnFeeBreakdown.setFont(new Font("Tahoma", Font.PLAIN, 11));
+				btnFeeBreakdown.setBackground(new Color(0, 193, 49));
+				btnFeeBreakdown.setBounds(469, 10, 110, 21);
+				panelEnrollDisplay.add(btnFeeBreakdown);
 				
 				JButton btnEnrollStudent = new JButton("Enroll Student");
 				btnEnrollStudent.setForeground(new Color(255, 255, 255));
@@ -343,4 +360,5 @@ public class EnrolmentForm {
 				
 				btnEnrollStudent.setFont(new Font("Tahoma", Font.BOLD, 15));
 	}
+	
 }

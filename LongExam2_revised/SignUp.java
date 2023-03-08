@@ -412,8 +412,8 @@ public class SignUp {
 				
 				if ((FirstNameFilled && LastNameFilled && birthdateFilled && isEmailFilled && isPasswordFilled && isRadioButtonSelected) == true) {
 					if (isValidPassword && isValidEmail) {
-						txtEmail.setBorder(red);
-						panelPassword.setBorder(red);
+						txtEmail.setBorder(gray);
+						panelPassword.setBorder(gray);
 						
 						JOptionPane.showMessageDialog(null, "Sign up success!\nClick 'OK' to continue with your new account.");
 						frame.dispose();
